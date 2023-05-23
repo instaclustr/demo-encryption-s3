@@ -1,0 +1,15 @@
+== demo
+
+Build as:
+
+[source,bash]
+----
+mvn clean install
+----
+
+Execute as:
+
+[source,bash]
+----
+java -jar target/capitalone.jar mybucket it/will/be/uploaded/here this-is-kms-keyid
+----
