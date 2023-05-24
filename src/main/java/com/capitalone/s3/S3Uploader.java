@@ -1,5 +1,7 @@
 package com.capitalone.s3;
 
+import java.io.File;
+
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -11,17 +13,18 @@ public class S3Uploader {
 
     public static void main(String[] args) {
 
-        if (args.length != 3) {
+        if (args.length != 4) {
             System.out.println("the first argument has to be name of bucket, the second argument has to be object key, " +
-                               "the third argument has to be KMS key id");
+                               "the third argument has to be KMS key id, the fourth argument points to local file to upload");
             System.out.println("Example: ");
-            System.out.println("java -jar target/capitalone.jar mybucket it/will/be/uploaded/here this-is-kms-keyid");
+            System.out.println("java -jar target/capitalone.jar mybucket it/will/be/uploaded/here this-is-kms-keyid /my/file/to/upload");
             System.exit(1);
         }
 
         String bucketName = args[0];
         String objectKey = args[1];
         String kmsKeyId = args[2];
+        String file = args[3];
 
         S3Client s3Client = null;
         S3EncryptionClient s3EncryptionClient = null;
@@ -48,7 +51,7 @@ public class S3Uploader {
 
             // uploads a text "upload me" to given bucket and object key
 
-            PutObjectResponse response = s3EncryptionClient.putObject(request, RequestBody.fromString("upload me"));
+            PutObjectResponse response = s3EncryptionClient.putObject(request, RequestBody.fromFile(new File(file)));
 
             // Check the response status
 

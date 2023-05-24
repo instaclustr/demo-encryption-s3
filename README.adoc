@@ -11,5 +11,5 @@ Execute as:
 
 [source,bash]
 ----
-java -jar target/capitalone.jar mybucket it/will/be/uploaded/here this-is-kms-keyid
+java -jar target/capitalone.jar mybucket it/will/be/uploaded/here this-is-kms-keyid  /my/file/to/upload
 ----
